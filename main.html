@@ -18,6 +18,11 @@
             margin: 0 auto;
         }
 
+        .welcome-screen {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
         .soru-container {
             display: none;
         }
@@ -81,9 +86,17 @@
 </head>
 <body>
     <div class="container">
-        <div class="ilerleme-bar">
+        <div class="welcome-screen active">
+            <h1>Bilgi Testi</h1>
+            <p>Bu test temel web teknolojileri hakkındaki bilginizi ölçecektir.</p>
+            <p>Toplam 3 sorudan oluşan testte her soru için tek seçenek işaretleyebilirsiniz.</p>
+            <button onclick="baslat()">Testi Başlat</button>
+        </div>
+
+        <div class="ilerleme-bar" style="display: none;">
             <div class="ilerleme" style="width: 0%"></div>
         </div>
+        
         <div class="sonuc-ekrani">
             <h2>Test Tamamlandı!</h2>
             <p>Puanınız: <span id="puan">0</span>/100</p>
@@ -118,6 +131,12 @@
         let currentSoru = 0;
         let puan = 0;
 
+        function baslat() {
+            document.querySelector('.welcome-screen').classList.remove('active');
+            document.querySelector('.ilerleme-bar').style.display = 'block';
+            initQuiz();
+        }
+
         function initQuiz() {
             const container = document.querySelector('.container');
             
@@ -136,7 +155,6 @@
                 container.insertAdjacentHTML('beforeend', soruHTML);
             });
 
-            // İlk soruyu aktif et
             document.querySelector('[data-soru="0"]').classList.add('active');
             updateIlerleme();
         }
@@ -144,12 +162,10 @@
         function cevapSec(secilenIndex, soruIndex) {
             if(soruIndex !== currentSoru) return;
             
-            // Doğru cevap kontrolü
             if(secilenIndex === sorular[soruIndex].dogruCevap) {
                 puan += Math.round(100 / sorular.length);
             }
 
-            // Sonraki soruya geç
             currentSoru++;
             
             if(currentSoru < sorular.length) {
@@ -157,6 +173,7 @@
                 document.querySelector(`[data-soru="${currentSoru}"]`).classList.add('active');
                 updateIlerleme();
             } else {
+                updateIlerleme();
                 bitirQuiz();
             }
         }
@@ -171,8 +188,6 @@
             document.querySelector('.sonuc-ekrani').style.display = 'block';
             document.getElementById('puan').textContent = puan;
         }
-
-        window.onload = initQuiz;
     </script>
 </body>
 </html>
