@@ -67,6 +67,16 @@
             display: none;
             text-align: center;
         }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -74,18 +84,6 @@
         <div class="ilerleme-bar">
             <div class="ilerleme" style="width: 0%"></div>
         </div>
-        
-        <div class="soru-container active" data-soru="0">
-            <div class="soru-no">Soru 1</div>
-            <div class="soru-text">Lorem ipsum dolor sit amet consectetur adipisicing elit?</div>
-            <div class="cevaplar">
-                <div class="cevap-kutusu">Cevap 1</div>
-                <div class="cevap-kutusu">Cevap 2</div>
-                <div class="cevap-kutusu">Cevap 3</div>
-                <div class="cevap-kutusu">Cevap 4</div>
-            </div>
-        </div>
-
         <div class="sonuc-ekrani">
             <h2>Test Tamamlandı!</h2>
             <p>Puanınız: <span id="puan">0</span>/100</p>
@@ -96,16 +94,25 @@
     <script>
         const sorular = [
             {
-                soru: "İlk soru metni",
-                cevaplar: ["Cevap 1", "Cevap 2", "Cevap 3", "Cevap 4"],
+                soru: "HTML'in açılımı nedir?",
+                cevaplar: [
+                    "Hyper Tool Markup Language",
+                    "Hyperlinks and Text Markup Language",
+                    "Home Tool Markup Language",
+                    "Hyper Text Markup Language"
+                ],
+                dogruCevap: 3
+            },
+            {
+                soru: "JavaScript hangi yıl ortaya çıkmıştır?",
+                cevaplar: ["1995", "1998", "2000", "2005"],
                 dogruCevap: 0
             },
             {
-                soru: "İkinci soru metni",
-                cevaplar: ["Cevap A", "Cevap B", "Cevap C", "Cevap D"],
+                soru: "CSS'de # sembolü neyi temsil eder?",
+                cevaplar: ["Class", "Tag", "ID", "Import"],
                 dogruCevap: 2
             }
-            // Diğer sorular...
         ];
 
         let currentSoru = 0;
@@ -116,7 +123,7 @@
             
             sorular.forEach((soru, index) => {
                 const soruHTML = `
-                    <div class="soru-container" data-soru="${index + 1}">
+                    <div class="soru-container" data-soru="${index}">
                         <div class="soru-no">Soru ${index + 1}</div>
                         <div class="soru-text">${soru.soru}</div>
                         <div class="cevaplar">
@@ -129,27 +136,25 @@
                 container.insertAdjacentHTML('beforeend', soruHTML);
             });
 
-            document.querySelectorAll('.cevap-kutusu').forEach(kutu => {
-                kutu.addEventListener('click', function() {
-                    this.style.backgroundColor = '#555';
-                });
-            });
-
+            // İlk soruyu aktif et
+            document.querySelector('[data-soru="0"]').classList.add('active');
             updateIlerleme();
         }
 
-        function cevapSec(cevapIndex, soruIndex) {
+        function cevapSec(secilenIndex, soruIndex) {
             if(soruIndex !== currentSoru) return;
             
-            if(cevapIndex === sorular[soruIndex].dogruCevap) {
-                puan += 100 / sorular.length;
+            // Doğru cevap kontrolü
+            if(secilenIndex === sorular[soruIndex].dogruCevap) {
+                puan += Math.round(100 / sorular.length);
             }
 
+            // Sonraki soruya geç
             currentSoru++;
             
             if(currentSoru < sorular.length) {
-                document.querySelector(`[data-soru="${currentSoru}"]`).classList.remove('active');
-                document.querySelector(`[data-soru="${currentSoru + 1}"]`).classList.add('active');
+                document.querySelector(`[data-soru="${soruIndex}"]`).classList.remove('active');
+                document.querySelector(`[data-soru="${currentSoru}"]`).classList.add('active');
                 updateIlerleme();
             } else {
                 bitirQuiz();
@@ -157,17 +162,16 @@
         }
 
         function updateIlerleme() {
-            const ilerleme = (currentSoru / sorular.length) * 100;
-            document.querySelector('.ilerleme').style.width = `${ilerleme}%`;
+            const ilerlemeYuzde = (currentSoru / sorular.length) * 100;
+            document.querySelector('.ilerleme').style.width = `${ilerlemeYuzde}%`;
         }
 
         function bitirQuiz() {
             document.querySelector('.soru-container.active').classList.remove('active');
             document.querySelector('.sonuc-ekrani').style.display = 'block';
-            document.getElementById('puan').textContent = Math.round(puan);
+            document.getElementById('puan').textContent = puan;
         }
 
-        // Sayfa yüklendiğinde quiz'i başlat
         window.onload = initQuiz;
     </script>
 </body>
