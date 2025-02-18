@@ -97,297 +97,58 @@
         </div>
       </div>
     </div>
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tek Soru Testi</title>
-  <style>
-    /* Genel stil ayarları: CSS (Cascading Style Sheets) */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .quiz-container {
-      background: #fff;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .question {
-      display: none; /* Tüm sorular başlangıçta gizli */
-    }
-    .question.active {
-      display: block; /* Sadece aktif soru görüntülenir */
-    }
-    .options {
-      margin-top: 15px;
-    }
-    /* Radio inputları gizli tutulur */
-    .options input[type="radio"] {
-      display: none;
-    }
-    /* Seçenek butonlarının stili */
-    .options label {
-      display: block;
-      background-color: #444; /* Koyu gri arka plan */
-      color: #fff;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-    /* Fare üzerine gelindiğinde */
-    .options label:hover {
-      background-color: #555;
-    }
-    /* Seçili seçenek için farklı arka plan */
-    .options input[type="radio"]:checked + label {
-      background-color: #2c2c2c;
-    }
-    #result {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="quiz-container">
-    <h1>Tek Soru Testi</h1>
-    <!-- HTML (Hyper Text Markup Language): Soruların bulunduğu yapı -->
-    <div id="quiz">
-      <!-- Soru 1 -->
-      <div class="question active" data-question="q1">
-        <h3>1. Soru: HTML nedir? <span style="font-size:0.8em;">(What is HTML?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q1a" name="q1" value="a">
-          <label for="q1a">A) Hyper Trainer Markup Language <span style="font-size:0.8em;">(Hyper Trainer Markup Language)</span></label>
-          
-          <input type="radio" id="q1b" name="q1" value="b">
-          <label for="q1b">B) Hyper Text Markup Language <span style="font-size:0.8em;">(Hyper Text Markup Language)</span></label>
-          
-          <input type="radio" id="q1c" name="q1" value="c">
-          <label for="q1c">C) Hyper Text Making Language <span style="font-size:0.8em;">(Hyper Text Making Language)</span></label>
-        </div>
-      </div>
-      <!-- Soru 2 -->
-      <div class="question" data-question="q2">
-        <h3>2. Soru: CSS nedir? <span style="font-size:0.8em;">(What is CSS?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q2a" name="q2" value="a">
-          <label for="q2a">A) Cascading Style Sheets <span style="font-size:0.8em;">(Cascading Style Sheets)</span></label>
-          
-          <input type="radio" id="q2b" name="q2" value="b">
-          <label for="q2b">B) Creative Style System <span style="font-size:0.8em;">(Creative Style System)</span></label>
-          
-          <input type="radio" id="q2c" name="q2" value="c">
-          <label for="q2c">C) Computer Style Sheets <span style="font-size:0.8em;">(Computer Style Sheets)</span></label>
-        </div>
-      </div>
-      <!-- Soru 3 -->
-      <div class="question" data-question="q3">
-        <h3>3. Soru: JavaScript nedir? <span style="font-size:0.8em;">(What is JavaScript?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q3a" name="q3" value="a">
-          <label for="q3a">A) JavaScript, bir programlama dilidir <span style="font-size:0.8em;">(JavaScript is a programming language)</span></label>
-          
-          <input type="radio" id="q3b" name="q3" value="b">
-          <label for="q3b">B) JavaScript, bir işaretleme dilidir <span style="font-size:0.8em;">(JavaScript is a markup language)</span></label>
-          
-          <input type="radio" id="q3c" name="q3" value="c">
-          <label for="q3c">C) JavaScript, bir stil sayfası dilidir <span style="font-size:0.8em;">(JavaScript is a style sheet language)</span></label>
-        </div>
-      </div>
-    </div>
     <!-- Sonuçların görüntüleneceği alan -->
     <div id="result"></div>
   </div>
 
   <!-- JavaScript (JS): Sorular arası geçiş ve sonuç hesaplaması -->
   <script>
-    let currentQuestionIndex = 0; // Aktif sorunun indeksini takip eder
+    let currentQuestionIndex = 0; // Şu anki sorunun indeksini tutar (current question index)
     const questions = document.querySelectorAll('.question');
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tek Soru Testi</title>
-  <style>
-    /* CSS (Cascading Style Sheets): Sayfanın görünümünü ayarlar */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .quiz-container {
-      background: #fff;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .question {
-      display: none; /* Tüm sorular başlangıçta gizli */
-    }
-    .question.active {
-      display: block; /* Sadece aktif soru görüntülenir */
-    }
-    .options {
-      margin-top: 15px;
-    }
-    /* Radio inputlarını gizli tutuyoruz */
-    .options input[type="radio"] {
-      display: none;
-    }
-    /* Seçenek butonlarının stili */
-    .options label {
-      display: block;
-      background-color: #444; /* Koyu gri arka plan */
-      color: #fff;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-    /* Fare üzerine gelindiğinde */
-    .options label:hover {
-      background-color: #555;
-    }
-    /* Seçili seçenek için farklı arka plan */
-    .options input[type="radio"]:checked + label {
-      background-color: #2c2c2c;
-    }
-    #result {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="quiz-container">
-    <h1>Tek Soru Testi</h1>
-    <!-- HTML (Hyper Text Markup Language): Soruların bulunduğu yapı -->
-    <div id="quiz">
-      <!-- Soru 1 -->
-      <div class="question active" data-question="q1">
-        <h3>1. Soru: HTML nedir? <span style="font-size:0.8em;">(What is HTML?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q1a" name="q1" value="a">
-          <label for="q1a">A) Hyper Trainer Markup Language <span style="font-size:0.8em;">(Hyper Trainer Markup Language)</span></label>
-          
-          <input type="radio" id="q1b" name="q1" value="b">
-          <label for="q1b">B) Hyper Text Markup Language <span style="font-size:0.8em;">(Hyper Text Markup Language)</span></label>
-          
-          <input type="radio" id="q1c" name="q1" value="c">
-          <label for="q1c">C) Hyper Text Making Language <span style="font-size:0.8em;">(Hyper Text Making Language)</span></label>
-        </div>
-      </div>
-      <!-- Soru 2 -->
-      <div class="question" data-question="q2">
-        <h3>2. Soru: CSS nedir? <span style="font-size:0.8em;">(What is CSS?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q2a" name="q2" value="a">
-          <label for="q2a">A) Cascading Style Sheets <span style="font-size:0.8em;">(Cascading Style Sheets)</span></label>
-          
-          <input type="radio" id="q2b" name="q2" value="b">
-          <label for="q2b">B) Creative Style System <span style="font-size:0.8em;">(Creative Style System)</span></label>
-          
-          <input type="radio" id="q2c" name="q2" value="c">
-          <label for="q2c">C) Computer Style Sheets <span style="font-size:0.8em;">(Computer Style Sheets)</span></label>
-        </div>
-      </div>
-      <!-- Soru 3 -->
-      <div class="question" data-question="q3">
-        <h3>3. Soru: JavaScript nedir? <span style="font-size:0.8em;">(What is JavaScript?)</span></h3>
-        <div class="options">
-          <input type="radio" id="q3a" name="q3" value="a">
-          <label for="q3a">A) JavaScript, bir programlama dilidir <span style="font-size:0.8em;">(JavaScript is a programming language)</span></label>
-          
-          <input type="radio" id="q3b" name="q3" value="b">
-          <label for="q3b">B) JavaScript, bir işaretleme dilidir <span style="font-size:0.8em;">(JavaScript is a markup language)</span></label>
-          
-          <input type="radio" id="q3c" name="q3" value="c">
-          <label for="q3c">C) JavaScript, bir stil sayfası dilidir <span style="font-size:0.8em;">(JavaScript is a style sheet language)</span></label>
-        </div>
-      </div>
-    </div>
-    <!-- Sonuçların görüntüleneceği alan -->
-    <div id="result"></div>
-  </div>
-
-  <!-- JavaScript (JS): Sorular arası geçiş ve sonuç hesaplaması -->
-  <script>
-    let currentQuestionIndex = 0; // Aktif sorunun indeksini takip eder
-    const questions = document.querySelectorAll('.question');
-
-    // Örnek doğru cevaplar (Answer Key)
+    // Örnek doğru cevaplar (Doğru Cevaplar: Answer Key)
     const correctAnswers = {
       q1: 'b', // HTML için doğru cevap
       q2: 'a', // CSS için doğru cevap
       q3: 'a'  // JavaScript için doğru cevap
     };
 
-    // Tüm radio inputlarına event listener eklenir.
+    // Her sorudaki radio inputlarına (seçeneklere) event listener ekliyoruz.
+    // Event Listener: Kullanıcı bir seçeneğe tıkladığında (change event) çalışır.
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(radio => {
       radio.addEventListener('change', function() {
-        // Bulunduğumuz sorudaki tüm radio butonlarını devre dışı bırakıyoruz
-        const currentQuestionDiv = this.closest('.question');
-        const radiosInCurrentQuestion = currentQuestionDiv.querySelectorAll('input[type="radio"]');
-        radiosInCurrentQuestion.forEach(r => r.disabled = true);
-        
-        // Küçük bir gecikme ile sonraki soruya geçiş (300ms)
+        // Küçük bir gecikme veriyoruz (300ms) ki, kullanıcı işaretlediğini fark edebilsin.
         setTimeout(() => {
           showNextQuestion();
         }, 300);
       });
     });
 
-    // Bir sonraki soruyu gösteren fonksiyon
+    // Sonraki soruyu gösteren fonksiyon (Function to show next question)
     function showNextQuestion() {
-      // Mevcut soruyu gizle
-      questions[currentQuestionIndex].classList.remove('active');
-      currentQuestionIndex++;
-      
-      // Eğer sonraki soru varsa aktif hale getir, yoksa sonuçları göster
+      // Mevcut soruyu gizle (Hide current question)
       if (currentQuestionIndex < questions.length) {
-        questions[currentQuestionIndex].classList.add('active');
-      } else {
+        questions[currentQuestionIndex].classList.remove('active');
+      }
+      currentQuestionIndex++;
+
+      // Tüm sorular tamamlandıysa sonuçları göster, aksi halde sonraki soruyu aktif yap
+      if (currentQuestionIndex >= questions.length) {
         showResults();
+      } else {
+        questions[currentQuestionIndex].classList.add('active');
       }
     }
 
-    // Sonuçları hesaplayıp ekrana yazdıran fonksiyon
+    // Sonuçları hesaplayıp ekrana yazdıran fonksiyon (Function to calculate and display results)
     function showResults() {
       let score = 0;
+      // Her soru için doğru cevap kontrolü yapılır
       questions.forEach(question => {
         const questionId = question.getAttribute('data-question');
         const selectedOption = question.querySelector('input[type="radio"]:checked');
         if (selectedOption && selectedOption.value === correctAnswers[questionId]) {
-          score++;
-        }
-      });
-      const totalQuestions = questions.length;
-      document.getElementById('result').textContent = 'Doğru Sayısı: ' + score + ' / ' + totalQuestions;
-    }
-  </script>
-</body>
-</html>d]) {
           score++;
         }
       });
