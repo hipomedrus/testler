@@ -1,160 +1,174 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tek Soru Testi</title>
-  <style>
-    /* CSS (Cascading Style Sheets): Sayfanın görünümünü ayarlar */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .quiz-container {
-      background: #fff;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .question {
-      display: none; /* Tüm soruları başlangıçta gizle */
-    }
-    .question.active {
-      display: block; /* Sadece aktif (görünen) soruyu göster */
-    }
-    .options label {
-      display: block;
-      margin-bottom: 10px;
-    }
-    #result {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Şablonu</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .soru-container {
+            display: none;
+        }
+
+        .soru-container.active {
+            display: block;
+        }
+
+        .soru-no {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .soru-text {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .cevap-kutusu {
+            background-color: #333;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cevap-kutusu:hover {
+            background-color: #444;
+            transform: translateX(10px);
+        }
+
+        .ilerleme-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #333;
+            margin-bottom: 20px;
+        }
+
+        .ilerleme {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.5s ease;
+        }
+
+        .sonuc-ekrani {
+            display: none;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Tek Soru Testi</h1>
-    <!-- HTML (Hyper Text Markup Language): Soruların yer aldığı ana yapı -->
-    <div id="quiz">
-      <!-- Soru 1 -->
-      <div class="question active" data-question="q1">
-        <h3>1. Soru: HTML nedir? <span style="font-size:0.8em;">(What is HTML?)</span></h3>
-        <div class="options">
-          <label>
-            <input type="radio" name="q1" value="a">
-            A) Hyper Trainer Markup Language <span style="font-size:0.8em;">(Hyper Trainer Markup Language)</span>
-          </label>
-          <label>
-            <input type="radio" name="q1" value="b">
-            B) Hyper Text Markup Language <span style="font-size:0.8em;">(Hyper Text Markup Language)</span>
-          </label>
-          <label>
-            <input type="radio" name="q1" value="c">
-            C) Hyper Text Making Language <span style="font-size:0.8em;">(Hyper Text Making Language)</span>
-          </label>
+    <div class="container">
+        <div class="ilerleme-bar">
+            <div class="ilerleme" style="width: 0%"></div>
         </div>
-      </div>
-      <!-- Soru 2 -->
-      <div class="question" data-question="q2">
-        <h3>2. Soru: CSS nedir? <span style="font-size:0.8em;">(What is CSS?)</span></h3>
-        <div class="options">
-          <label>
-            <input type="radio" name="q2" value="a">
-            A) Cascading Style Sheets <span style="font-size:0.8em;">(Cascading Style Sheets)</span>
-          </label>
-          <label>
-            <input type="radio" name="q2" value="b">
-            B) Creative Style System <span style="font-size:0.8em;">(Creative Style System)</span>
-          </label>
-          <label>
-            <input type="radio" name="q2" value="c">
-            C) Computer Style Sheets <span style="font-size:0.8em;">(Computer Style Sheets)</span>
-          </label>
+        
+        <div class="soru-container active" data-soru="0">
+            <div class="soru-no">Soru 1</div>
+            <div class="soru-text">Lorem ipsum dolor sit amet consectetur adipisicing elit?</div>
+            <div class="cevaplar">
+                <div class="cevap-kutusu">Cevap 1</div>
+                <div class="cevap-kutusu">Cevap 2</div>
+                <div class="cevap-kutusu">Cevap 3</div>
+                <div class="cevap-kutusu">Cevap 4</div>
+            </div>
         </div>
-      </div>
-      <!-- Soru 3 -->
-      <div class="question" data-question="q3">
-        <h3>3. Soru: JavaScript nedir? <span style="font-size:0.8em;">(What is JavaScript?)</span></h3>
-        <div class="options">
-          <label>
-            <input type="radio" name="q3" value="a">
-            A) JavaScript, bir programlama dilidir <span style="font-size:0.8em;">(JavaScript is a programming language)</span>
-          </label>
-          <label>
-            <input type="radio" name="q3" value="b">
-            B) JavaScript, bir işaretleme dilidir <span style="font-size:0.8em;">(JavaScript is a markup language)</span>
-          </label>
-          <label>
-            <input type="radio" name="q3" value="c">
-            C) JavaScript, bir stil sayfası dilidir <span style="font-size:0.8em;">(JavaScript is a style sheet language)</span>
-          </label>
+
+        <div class="sonuc-ekrani">
+            <h2>Test Tamamlandı!</h2>
+            <p>Puanınız: <span id="puan">0</span>/100</p>
+            <button onclick="location.reload()">Tekrar Dene</button>
         </div>
-      </div>
     </div>
-    <!-- Sonuçların görüntüleneceği alan -->
-    <div id="result"></div>
-  </div>
 
-  <!-- JavaScript (JS): Sorular arası geçiş ve sonuç hesaplaması -->
-  <script>
-    let currentQuestionIndex = 0; // Şu anki sorunun indeksini tutar (current question index)
-    const questions = document.querySelectorAll('.question');
+    <script>
+        const sorular = [
+            {
+                soru: "İlk soru metni",
+                cevaplar: ["Cevap 1", "Cevap 2", "Cevap 3", "Cevap 4"],
+                dogruCevap: 0
+            },
+            {
+                soru: "İkinci soru metni",
+                cevaplar: ["Cevap A", "Cevap B", "Cevap C", "Cevap D"],
+                dogruCevap: 2
+            }
+            // Diğer sorular...
+        ];
 
-    // Örnek doğru cevaplar (Doğru Cevaplar: Answer Key)
-    const correctAnswers = {
-      q1: 'b', // HTML için doğru cevap
-      q2: 'a', // CSS için doğru cevap
-      q3: 'a'  // JavaScript için doğru cevap
-    };
+        let currentSoru = 0;
+        let puan = 0;
 
-    // Her sorudaki radio inputlarına (seçeneklere) event listener ekliyoruz.
-    // Event Listener: Kullanıcı bir seçeneğe tıkladığında (change event) çalışır.
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    radioButtons.forEach(radio => {
-      radio.addEventListener('change', function() {
-        // Küçük bir gecikme veriyoruz (300ms) ki, kullanıcı işaretlediğini fark edebilsin.
-        setTimeout(() => {
-          showNextQuestion();
-        }, 300);
-      });
-    });
+        function initQuiz() {
+            const container = document.querySelector('.container');
+            
+            sorular.forEach((soru, index) => {
+                const soruHTML = `
+                    <div class="soru-container" data-soru="${index + 1}">
+                        <div class="soru-no">Soru ${index + 1}</div>
+                        <div class="soru-text">${soru.soru}</div>
+                        <div class="cevaplar">
+                            ${soru.cevaplar.map((cevap, i) => `
+                                <div class="cevap-kutusu" onclick="cevapSec(${i}, ${index})">${cevap}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', soruHTML);
+            });
 
-    // Sonraki soruyu gösteren fonksiyon (Function to show next question)
-    function showNextQuestion() {
-      // Mevcut soruyu gizle (Hide current question)
-      if (currentQuestionIndex < questions.length) {
-        questions[currentQuestionIndex].classList.remove('active');
-      }
-      currentQuestionIndex++;
+            document.querySelectorAll('.cevap-kutusu').forEach(kutu => {
+                kutu.addEventListener('click', function() {
+                    this.style.backgroundColor = '#555';
+                });
+            });
 
-      // Tüm sorular tamamlandıysa sonuçları göster, aksi halde sonraki soruyu aktif yap
-      if (currentQuestionIndex >= questions.length) {
-        showResults();
-      } else {
-        questions[currentQuestionIndex].classList.add('active');
-      }
-    }
-
-    // Sonuçları hesaplayıp ekrana yazdıran fonksiyon (Function to calculate and display results)
-    function showResults() {
-      let score = 0;
-      // Her soru için doğru cevap kontrolü yapılır
-      questions.forEach(question => {
-        const questionId = question.getAttribute('data-question');
-        const selectedOption = question.querySelector('input[type="radio"]:checked');
-        if (selectedOption && selectedOption.value === correctAnswers[questionId]) {
-          score++;
+            updateIlerleme();
         }
-      });
-      const totalQuestions = questions.length;
-      document.getElementById('result').textContent = 'Doğru Sayısı: ' + score + ' / ' + totalQuestions;
-    }
-  </script>
+
+        function cevapSec(cevapIndex, soruIndex) {
+            if(soruIndex !== currentSoru) return;
+            
+            if(cevapIndex === sorular[soruIndex].dogruCevap) {
+                puan += 100 / sorular.length;
+            }
+
+            currentSoru++;
+            
+            if(currentSoru < sorular.length) {
+                document.querySelector(`[data-soru="${currentSoru}"]`).classList.remove('active');
+                document.querySelector(`[data-soru="${currentSoru + 1}"]`).classList.add('active');
+                updateIlerleme();
+            } else {
+                bitirQuiz();
+            }
+        }
+
+        function updateIlerleme() {
+            const ilerleme = (currentSoru / sorular.length) * 100;
+            document.querySelector('.ilerleme').style.width = `${ilerleme}%`;
+        }
+
+        function bitirQuiz() {
+            document.querySelector('.soru-container.active').classList.remove('active');
+            document.querySelector('.sonuc-ekrani').style.display = 'block';
+            document.getElementById('puan').textContent = Math.round(puan);
+        }
+
+        // Sayfa yüklendiğinde quiz'i başlat
+        window.onload = initQuiz;
+    </script>
 </body>
 </html>
